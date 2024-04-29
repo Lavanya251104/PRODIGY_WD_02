@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stopwatch</title>
+    <style>
+        body {
+        background-image: url("bg3.gif");
+        background-repeat: no-repeat;
+        background-size:cover;
+}
+        .container{
+            padding-top: 15%;
+            margin-left: 35%;
+            font-style: italic;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 25px;
+            color: azure;
+        }
+        .stopwatch{
+            color: aliceblue;
+            font-size: 2rem;
+            font-weight: bolder;
+        }
+       
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>stopwatch</h1>
+    <div class="stopwatch">
+            00  :  00  :  00  :  00 
+    </div>
+       
+        <ul class="laps"></ul>
+
+        <div class="btn">
+            <button style="background-color: #51cddd; font-style: italic; font-family:cursive;font-weight:bolder; height: 40px; width:70px; border-radius: 10%;" onclick="start()">START</button>
+            <button style="background-color: #51cddd; font-style: italic; font-family:cursive;font-weight:bolder;height: 40px; width: 70px;border-radius: 10%"onclick="pause()">PAUSE</button>
+            <button style="background-color: #51cddd; font-style: italic; font-family:cursive;font-weight:bolder;height: 40px; width: 70px;border-radius: 10%" onclick="reset()">RESET</button>
+            <button style="background-color: #51cddd; font-style: italic; font-family:cursive;font-weight:bolder;height: 40px; width: 70px;border-radius: 10%" onclick="lap()">LAPS</button>
+            <button style="background-color: #51cddd; font-style: italic; font-family:cursive;font-weight:bolder;height: 40px; width: 100px;border-radius: 10%" onclick="clearlap()">CLEAR LAPS</button>
+    </div>
+    </div>
+<script>
+    var ms=0 , s=0, m=0,h=0;
+    var timer;
+    var display=document.querySelector('.stopwatch');
+    var laps=document.querySelector('.laps');
+    function start(){
+        if(!timer)
+        {
+            timer =setInterval(run,10)
+        }
+    }
+    function run()
+    {
+        display.innerHTML=getTimer();
+        ms++;
+        if(ms==100)
+        {
+            ms=0;
+            s++;
+        }
+        if(s==60)
+        {
+            s=0;
+            m++;
+        }
+        if(m==60)
+        {
+            m=0;
+            h++;
+        }
+    }
+    function getTimer()
+    {
+        return(h<10?"0"+h:h)+" : "+(m<10?"0"+m:m)+" : "+(s<10?"0"+s:s)+" : "+(ms<10?" 0"+ms:ms);
+    }
+    function pause(){
+        stopTimer();
+    }
+    function stopTimer(){
+             clearInterval(timer);
+             timer=false;
+    }
+    function reset()
+    {
+        stopTimer();
+        ms=0;
+        s=0;
+        m=0;
+        h=0;
+        display.innerHTML=getTimer();
+    }
+    function lap()
+    {
+        if(timer)
+        {
+            var li=document.createElement("li");
+            li.innerHTML=getTimer();
+            laps.appendChild(li);
+        }
+    }
+    function clearlap()
+    {
+        laps.innerHTML="";
+    }
+    
+</script>
+</body>
+</html>
